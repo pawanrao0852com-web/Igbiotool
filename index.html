@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IG Bio Tool</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #101020, #39204f, #111827);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px;
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 22px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #ff6bb5;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #ddd;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin: 16px 0 8px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #fff;
+    color: #222;
+}
+
+textarea {
+    min-height: 125px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ff3985, #ff784f);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    opacity: 0.8;
+}
+
+.footer {
+    text-align: center;
+    color: #bbb;
+    margin-top: 25px;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>✨ IG Bio Tool</h1>
+
+    <p class="subtitle">Create Your Stylish Instagram Bio</p>
+
+    <label for="username">Your Name</label>
+    <input id="username" type="text" placeholder="Enter your name">
+
+    <label for="style">Choose Your Style</label>
+    <select id="style">
+        <option value="alpha">👑 Alpha Style</option>
+        <option value="attitude">🔥 Attitude Style</option>
+        <option value="love">❤️ Love Style</option>
+        <option value="starboy">🌟 Starboy Style</option>
+        <option value="simple">✨ Simple Style</option>
+    </select>
+
+    <label for="emoji">Favorite Emoji</label>
+    <input id="emoji" type="text" placeholder="Example: 👑">
+
+    <button id="generateBtn">🚀 Generate My Bio</button>
+
+    <label for="output">Your Instagram Bio</label>
+    <textarea id="output" placeholder="Your bio will appear here..."></textarea>
+
+    <button id="copyBtn">📋 Copy My Bio</button>
+
+    <p class="footer">Made with ❤️ | IG Bio Tool</p>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const nameInput = document.getElementById("username");
+    const styleInput = document.getElementById("style");
+    const emojiInput = document.getElementById("emoji");
+    const output = document.getElementById("output");
+
+    document.getElementById("generateBtn").addEventListener("click", function () {
+
+        const name = nameInput.value.trim();
+        const style = styleInput.value;
+        const emoji = emojiInput.value.trim() || "✨";
+
+        if (name === "") {
+            alert("Please enter your name first!");
+            nameInput.focus();
+            return;
+        }
+
+        let bio = "";
+
+        if (style === "alpha") {
+            bio = "𓆩 " + name + " 𓆪\n👑 Born to Rule\n😈 Silent Killer\n" + emoji + " My Life, My Rules";
+        }
+        else if (style === "attitude") {
+            bio = "🔥 " + name + "\n😎 No Competition\n👑 Own My Kingdom\n" + emoji + " Attitude Is Everything";
+        }
+        else if (style === "love") {
+            bio = "❤️ " + name + "\n💖 Heart Full of Love\n🌹 Dreaming of Forever\n" + emoji + " Love Never Fails";
+        }
+        else if (style === "starboy") {
+            bio = "𓆩 STARBOY " + name + " 𓆪\n🌙 Lost in My Dreams\n⭐ Born to Shine\n" + emoji + " Different by Nature";
+        }
+        else {
+            bio = "✨ " + name + "\n🌱 Keep Growing\n💫 Stay Real\n" + emoji + " Enjoy Every Moment";
+        }
+
+        output.value = bio;
+        output.focus();
+
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async function () {
+
+        const bio = output.value;
+
+        if (!bio.trim()) {
+            alert("First generate your bio!");
+            return;
+        }
+
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(bio);
+            } else {
+                output.focus();
+                output.select();
+                const copied = document.execCommand("copy");
+
+                if (!copied) {
+                    alert("Bio ko select karke Copy karo.");
+                    return;
+                }
+            }
+
+            alert("Bio copied successfully! 🎉");
+
+        } catch (error) {
+            output.focus();
+            output.select();
+            alert("Bio select ho gayi hai. Ab Copy par tap karo.");
+        }
+
+    });
+
+});
+</script>
+
+</body>
+</html>
